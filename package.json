@@ -4,7 +4,9 @@
   "description": "Учебный проект Барбершоп от HTML Academy",
   "main": "index.js",
   "scripts": {
-    "stylelint": "stylelint \"source/sass/**/*.scss\" --syntax scss"
+    "editorconfig": "editorconfig-cli",
+    "stylelint": "stylelint \"source/sass/**/*.scss\" --syntax scss",
+    "test": "npm run editorconfig && npm run stylelint"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,8 @@
   },
   "homepage": "https://github.com/ilyagorev/barbershop#readme",
   "devDependencies": {
+    "@htmlacademy/editorconfig-cli": "^1.0.0",
+    "stylelint": "^9.6.0",
     "stylelint-config-htmlacademy": "^0.1.1"
   }
 }
