@@ -6,7 +6,8 @@
   "scripts": {
     "editorconfig": "editorconfig-cli",
     "stylelint": "stylelint \"source/sass/**/*.scss\" --syntax scss",
-    "test": "npm run editorconfig && npm run stylelint"
+    "test": "npm run editorconfig && npm run stylelint",
+    "build": "gulp style"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,9 @@
   "homepage": "https://github.com/ilyagorev/barbershop#readme",
   "devDependencies": {
     "@htmlacademy/editorconfig-cli": "^1.0.0",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^4.0.2",
+    "node-sass": "^4.9.4",
     "stylelint": "^9.6.0",
     "stylelint-config-htmlacademy": "^0.1.1"
   },
@@ -31,5 +35,5 @@
     "source/js/**/*.js",
     "source/img/**/*.svg",
     "source/sass/**/*.{sass,scss}"
-]
+  ]
 }
