@@ -23,7 +23,9 @@
   "devDependencies": {
     "@htmlacademy/editorconfig-cli": "^1.0.0",
     "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^6.0.0",
     "gulp-plumber": "^1.2.0",
+    "gulp-postcss": "^8.0.0",
     "gulp-sass": "^4.0.2",
     "node-sass": "^4.9.4",
     "stylelint": "^9.6.0",
