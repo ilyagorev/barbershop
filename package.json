@@ -1,0 +1,23 @@
+{
+  "name": "barbershop",
+  "version": "1.0.0",
+  "description": "Учебный проект Барбершоп от HTML Academy",
+  "main": "index.js",
+  "scripts": {
+    "stylelint": "stylelint \"source/sass/**/*.scss\" --syntax scss"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilyagorev/barbershop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilyagorev/barbershop/issues"
+  },
+  "homepage": "https://github.com/ilyagorev/barbershop#readme",
+  "devDependencies": {
+    "stylelint-config-htmlacademy": "^0.1.1"
+  }
+}
