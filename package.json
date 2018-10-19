@@ -23,5 +23,13 @@
     "@htmlacademy/editorconfig-cli": "^1.0.0",
     "stylelint": "^9.6.0",
     "stylelint-config-htmlacademy": "^0.1.1"
-  }
+  },
+  "editorconfig-cli": [
+    "*.json",
+    "*.js",
+    "source/*.html",
+    "source/js/**/*.js",
+    "source/img/**/*.svg",
+    "source/sass/**/*.{sass,scss}"
+]
 }
