@@ -17,6 +17,12 @@ var autoprefixer = require("autoprefixer");
 var server = require("browser-sync").create();
 var reload = server.reload;
 
+// Минификация CSS 
+var minify = require("gulp-csso");
+
+// Минификация графики 
+var imagemin = require("gulp-imagemin");
+
 gulp.task("style", function () {
   return gulp.src("source/sass/style.scss")
     .pipe(plumber())
@@ -25,7 +31,21 @@ gulp.task("style", function () {
       autoprefixer()
     ]))
     .pipe(gulp.dest("source/css"))
+    .pipe(minify())
+    .pipe(rename("style.min.css"))
+    .pipe(gulp.dest("source/css"))
     .pipe(server.stream()); //перерисовка страницы 
+});
+
+// Минификация графики
+gulp.task("images", function() {
+  return gulp.src("./source/img/**/*.{png,jpg,svg}")
+    .pipe(imagemin([
+      imagemin.optipng({optimizationLevel: 3}), // 3 == безопасное сжатие
+      imagemin.jpegtran({progressive: true}), //progressive == изображение постепенно прорисовывается при загрузке
+      imagemin.svgo() // убрать лишние теги из svg
+      ]))
+    .pipe(gulp.dest("./source/img"));
 });
 
 // Вочеры, следящие за изменениями  файлов
