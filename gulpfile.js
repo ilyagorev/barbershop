@@ -45,6 +45,9 @@ var run = require("run-sequence");
 // Плагин минификация HTML 
 var htmlmin = require("gulp-htmlmin");
 
+/* Минификация JS*/
+var uglify = require("gulp-uglify");
+
 gulp.task("style", function () {
   return gulp.src("source/sass/style.scss")
     .pipe(plumber())
@@ -87,17 +90,26 @@ gulp.task("sprite", function() {
     .pipe(gulp.dest("build/img"));
 });
 
-// Подключение SVG в HTML через <include>
 gulp.task("html", function() {
   return gulp.src("source/*.html")
-    .pipe(posthtml([
+    .pipe(posthtml([            // Подключение SVG в HTML через <include>
       include()
     ]))
-    .pipe(htmlmin({                  // Минификация HTML
+    .pipe(htmlmin({             // Минификация HTML
       collapseWhitespace: true,
       ignoreCustomFragments: [ /<br>\s/gi ]  // Не убираем пробел после <br>
     }))
     .pipe(gulp.dest("build"))
+    .pipe(server.stream());
+});
+
+// Минификация JS
+gulp.task("scripts", function () {
+  return gulp.src("source/js/**/*.js")
+    .pipe(plumber())
+    .pipe(uglify())
+    .pipe(rename({suffix: ".min"}))
+    .pipe(gulp.dest("build/js"))
     .pipe(server.stream());
 });
 
@@ -130,6 +142,7 @@ gulp.task("serve", function () {
 // Вочеры, следящие за изменениями  файлов
 gulp.watch("source/sass/**/*.{scss,sass}", ["style"]);
 gulp.watch("source/*.html", ["html"]);
+gulp.watch("source/js/*.js", ["scripts"]);
 gulp.watch("source/img/**/*.{png,jpg,svg,webp}", ["images-watch"]);
 });
 
@@ -139,6 +152,7 @@ gulp.task("build", function(done) {
     "clean",
     "copy",
     "style",
+    "scripts",
     "images",
     "webp",
     "sprite",
