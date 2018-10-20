@@ -23,6 +23,9 @@ var minify = require("gulp-csso");
 // Минификация графики 
 var imagemin = require("gulp-imagemin");
 
+// Плагин для переименования файлов 
+var rename = require("gulp-rename");
+
 gulp.task("style", function () {
   return gulp.src("source/sass/style.scss")
     .pipe(plumber())
