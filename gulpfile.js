@@ -3,13 +3,13 @@
 // gulp таск-раннер
 var gulp = require("gulp");
 
-//SASS препроцессор
+// SASS препроцессор
 var sass = require("gulp-sass");
 
-//Сообщает об ошибках, не прерывая сборку
+// Сообщает об ошибках, не прерывая сборку
 var plumber = require("gulp-plumber");
 
-//POSTCSS с плагинов для автопрефикса
+// POSTCSS с плагинов для автопрефикса
 var postcss = require("gulp-postcss");
 var autoprefixer = require("autoprefixer");
 
@@ -29,12 +29,18 @@ var rename = require("gulp-rename");
 // Плагин конвертации изображений в Webp для blink браузеров
 var webp = require("gulp-webp");
 
-/// Сборка SVG спрайта
+// Сборка SVG спрайта
 var svgstore = require("gulp-svgstore");
 
 // PostHTML с плагином для вставки SVG в HTML через <include src=""></include> 
 var posthtml = require("gulp-posthtml");
 var include = require("posthtml-include");
+
+// Библиотека для удаления файлов 
+var del = require("del");
+
+// Плагин для последовательного запуска задач, в 4й версии Gulp встроено
+var run = require("run-sequence");
 
 gulp.task("style", function () {
   return gulp.src("source/sass/style.scss")
@@ -43,29 +49,29 @@ gulp.task("style", function () {
     .pipe(postcss([
       autoprefixer()
     ]))
-    .pipe(gulp.dest("source/css"))
+    .pipe(gulp.dest("build/css"))
     .pipe(minify())
     .pipe(rename("style.min.css"))
-    .pipe(gulp.dest("source/css"))
+    .pipe(gulp.dest("build/css"))
     .pipe(server.stream()); //перерисовка страницы 
 });
 
 // Минификация графики
 gulp.task("images", function() {
-  return gulp.src("./source/img/**/*.{png,jpg,svg}")
+  return gulp.src("source/img/**/*.{png,jpg,svg}")
     .pipe(imagemin([
       imagemin.optipng({optimizationLevel: 3}), // 3 == безопасное сжатие
       imagemin.jpegtran({progressive: true}), //progressive == изображение постепенно прорисовывается при загрузке
       imagemin.svgo() // убрать лишние теги из svg
       ]))
-    .pipe(gulp.dest("./source/img"));
+    .pipe(gulp.dest("build/img"));
 });
 
 // Конвертация в webp
 gulp.task("webp", function() {
   return gulp.src("source/img/**/*.{png,jpg}")
     .pipe(webp({quality: 90}))
-    .pipe(gulp.dest("source/img"));
+    .pipe(gulp.dest("build/img"));
 });
 
 // Сборка спрайта из SVG-файлов
@@ -75,7 +81,7 @@ gulp.task("sprite", function() {
       inLineSvg: true
     }))
     .pipe(rename("sprite.svg"))
-    .pipe(gulp.dest("source/img"));
+    .pipe(gulp.dest("build/img"));
 });
 
 // Подключение SVG в HTML через <include>
@@ -84,22 +90,51 @@ gulp.task("html", function() {
     .pipe(posthtml([
       include()
     ]))
-    .pipe(gulp.dest("source"))
+    .pipe(gulp.dest("build"))
 });
 
+// Удаление build перед новой сборкой
+gulp.task("clean", function() {
+  return del("build");
+});
 
-//  Вочеры, следящие за изменениями  файлов
-// Перед  serve  должен быть запущен build 
-gulp.task("serve", ["style"], function () {
+gulp.task("copy", function() {
+  return gulp.src([
+  "source/fonts/**/*.{woff,woff2}",
+  "source/img/**",
+  "source/js/**"
+  ], {
+    base: "source" // чтобы не потерять директории, т.к. копирует только содержимое
+  })
+  .pipe(gulp.dest("build"));
+});
+
+// "Живой сервер". Перед  serve  должен быть запущен build 
+gulp.task("serve", function () {
   server.init({
-    server: "source/",
+    server: "build/",
     notify: false,
     open: true,
     cors: true,
     ui: false
 });
 
-  gulp.watch("source/sass/**/*.{scss,sass}", ["style"]);
-  gulp.watch("source/*.html")
-    .on("change", server.reload);
+// Вочеры, следящие за изменениями  файлов
+gulp.watch("source/sass/**/*.{scss,sass}", ["style"]);
+gulp.watch("source/*.html", ["html"]);
+gulp.watch("source/img/**/*.{png,jpg,svg,webp}", ["images-watch"]);
+});
+
+// Сборка всего проекта(npm run build) 
+gulp.task("build", function(done) {
+  run(
+    "clean",
+    "copy",
+    "style",
+    "images",
+    "webp",
+    "sprite",
+    "html",
+    done
+  );
 });
