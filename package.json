@@ -27,6 +27,7 @@
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-csso": "^3.0.1",
+    "gulp-cwebp": "^3.0.0",
     "gulp-imagemin": "^4.1.0",
     "gulp-plumber": "^1.2.0",
     "gulp-postcss": "^8.0.0",

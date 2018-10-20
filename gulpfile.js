@@ -26,6 +26,9 @@ var imagemin = require("gulp-imagemin");
 // Плагин для переименования файлов 
 var rename = require("gulp-rename");
 
+// Плагин конвертации изображений в Webp для blink браузеров */
+var webp = require("gulp-webp");
+
 gulp.task("style", function () {
   return gulp.src("source/sass/style.scss")
     .pipe(plumber())
@@ -51,7 +54,14 @@ gulp.task("images", function() {
     .pipe(gulp.dest("./source/img"));
 });
 
-// Вочеры, следящие за изменениями  файлов
+// Конвертация в webp
+gulp.task("webp", function() {
+  return gulp.src("source/img/**/*.{png,jpg}")
+    .pipe(webp({quality: 90})) 
+    .pipe(gulp.dest("source/img"));
+});
+
+//  Вочеры, следящие за изменениями  файлов
 // Перед  serve  должен быть запущен build 
 gulp.task("serve", ["style"], function () {
   server.init({
