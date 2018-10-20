@@ -29,6 +29,9 @@ var rename = require("gulp-rename");
 // Плагин конвертации изображений в Webp для blink браузеров */
 var webp = require("gulp-webp");
 
+/// Сборка SVG спрайта
+var svgstore = require("gulp-svgstore");
+
 gulp.task("style", function () {
   return gulp.src("source/sass/style.scss")
     .pipe(plumber())
@@ -58,6 +61,16 @@ gulp.task("images", function() {
 gulp.task("webp", function() {
   return gulp.src("source/img/**/*.{png,jpg}")
     .pipe(webp({quality: 90})) 
+    .pipe(gulp.dest("source/img"));
+});
+
+// Сборка спрайта из SVG-файлов
+gulp.task("sprite", function() {
+  return gulp.src("source/img/icon-*.svg")
+    .pipe(svgstore({   
+      inLineSvg: true 
+    }))
+    .pipe(rename("sprite.svg"))
     .pipe(gulp.dest("source/img"));
 });
 
