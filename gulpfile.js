@@ -42,6 +42,9 @@ var del = require("del");
 // Плагин для последовательного запуска задач, в 4й версии Gulp встроено
 var run = require("run-sequence");
 
+// Плагин минификация HTML 
+var htmlmin = require("gulp-htmlmin");
+
 gulp.task("style", function () {
   return gulp.src("source/sass/style.scss")
     .pipe(plumber())
@@ -90,7 +93,12 @@ gulp.task("html", function() {
     .pipe(posthtml([
       include()
     ]))
+    .pipe(htmlmin({                  // Минификация HTML
+      collapseWhitespace: true,
+      ignoreCustomFragments: [ /<br>\s/gi ]  // Не убираем пробел после <br>
+    }))
     .pipe(gulp.dest("build"))
+    .pipe(server.stream());
 });
 
 // Удаление build перед новой сборкой
