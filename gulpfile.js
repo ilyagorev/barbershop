@@ -26,11 +26,15 @@ var imagemin = require("gulp-imagemin");
 // Плагин для переименования файлов 
 var rename = require("gulp-rename");
 
-// Плагин конвертации изображений в Webp для blink браузеров */
+// Плагин конвертации изображений в Webp для blink браузеров
 var webp = require("gulp-webp");
 
 /// Сборка SVG спрайта
 var svgstore = require("gulp-svgstore");
+
+// PostHTML с плагином для вставки SVG в HTML через <include src=""></include> 
+var posthtml = require("gulp-posthtml");
+var include = require("posthtml-include");
 
 gulp.task("style", function () {
   return gulp.src("source/sass/style.scss")
@@ -60,19 +64,29 @@ gulp.task("images", function() {
 // Конвертация в webp
 gulp.task("webp", function() {
   return gulp.src("source/img/**/*.{png,jpg}")
-    .pipe(webp({quality: 90})) 
+    .pipe(webp({quality: 90}))
     .pipe(gulp.dest("source/img"));
 });
 
 // Сборка спрайта из SVG-файлов
 gulp.task("sprite", function() {
   return gulp.src("source/img/icon-*.svg")
-    .pipe(svgstore({   
-      inLineSvg: true 
+    .pipe(svgstore({
+      inLineSvg: true
     }))
     .pipe(rename("sprite.svg"))
     .pipe(gulp.dest("source/img"));
 });
+
+// Подключение SVG в HTML через <include>
+gulp.task("html", function() {
+  return gulp.src("source/*.html")
+    .pipe(posthtml([
+      include()
+    ]))
+    .pipe(gulp.dest("source"))
+});
+
 
 //  Вочеры, следящие за изменениями  файлов
 // Перед  serve  должен быть запущен build 
