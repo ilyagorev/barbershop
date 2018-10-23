@@ -1,3 +1,28 @@
+@font-face {
+  font-family: "PT Sans Narrow";
+  font-weight: 400;
+  font-style: normal;
+
+  font-display: swap;
+  src: local("PT Sans Narrow"),
+    local("PTSans-Narrow"),
+    url("../fonts/pt-sans-narrow-v8-latin_cyrillic-regular.woff2")
+    format("woff2"),
+    url("../fonts/pt-sans-narrow-v8-latin_cyrillic-regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "PT Sans Narrow";
+  font-weight: 700;
+  font-style: normal;
+
+  font-display: swap;
+  src: local("PT Sans Narrow Bold"),
+    local("PTSans-NarrowBold"),
+    url("../fonts/pt-sans-narrow-v8-latin_cyrillic-700.woff2") format("woff2"),
+    url("../fonts/pt-sans-narrow-v8-latin_cyrillic-700.woff") format("woff");
+}
+
 body {
   min-width: $mobile-size;
   margin: 0;
@@ -5,7 +30,7 @@ body {
 
   font-size: 18px;
   line-height: 27px;
-  font-family: "Arial", sans-serif;
+  font-family: "PT Sans Narrow", "Arial", sans-serif;
   color: $bg-lightgrey;
   font-style: normal;
 
