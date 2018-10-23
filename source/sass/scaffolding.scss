@@ -1,0 +1,18 @@
+body {
+  min-width: $mobile-size;
+  margin: 0;
+  padding: 0;
+
+  font-size: 18px;
+  line-height: 27px;
+  font-family: "Arial", sans-serif;
+  color: $bg-lightgrey;
+  font-style: normal;
+
+  background-color: $bg-darkgrey;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
