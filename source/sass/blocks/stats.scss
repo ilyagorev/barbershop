@@ -120,8 +120,92 @@
     margin-top: -185px;
   }
 
+  .stats__header {
+    position: relative;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &::before {
+      position: absolute;
+      top: 27px;
+      left: -31px;
+
+      content: "";
+      transform: rotate(-90deg);
+
+      border: 21px solid transparent;
+      border-right-width: 0;
+      border-bottom-color: #ffffff;
+    }
+  }
+
+  .stats__slogan {
+    width: 240px;
+    margin-bottom: 18px;
+
+    font-size: 40px;
+    line-height: 40px;
+    text-align: left;
+    text-transform: none;
+  }
+
+  .stats__intro {
+    width: 210px;
+    margin-top: 5px;
+    padding-right: 47px;
+
+    text-align: left;
+  }
+
   .stats__list {
     display: flex;
+  }
+
+  .stats__legend--top {
+    display: block;
+    width: 240px;
+
+    color: rgba(0, 0, 0, 0.3);
+  }
+
+  .stats__legend--bottom {
+    display: none;
+  }
+
+  .stats__list tbody {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .stats__list tr {
+    width: 250px;
+    padding: 25px 35px;
+    padding-bottom: 28px;
+  }
+
+  .stats__list td {
+    display: block;
+    width: auto;
+    padding: 0;
+  }
+
+  .stats__value {
+    margin-bottom: 7px;
+
+    font-size: 72px;
+    line-height: 72px;
+  }
+
+  .stats__field {
+    font-size: 20px;
+    line-height: 27px;
+    text-align: left;
+  }
+
+  .stats__field br {
+    display: none;
   }
 }
 
