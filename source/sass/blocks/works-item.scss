@@ -1,0 +1,146 @@
+.works-item {
+  margin-bottom: 20px;
+  padding: 0 20px;
+
+  color: #000000;
+}
+
+.works-item--work-of-month {
+  position: relative;
+}
+
+.works-item--work-of-month::before {
+  content: "Работа месяца";
+
+  position: absolute;
+  top: 401px;
+  left: 20px;
+  z-index: 2;
+
+  width: 140px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 11px;
+  padding-left: 16px;
+
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: bold;
+  text-align: center;
+  color: #ffffff;
+  text-transform: uppercase;
+
+  background-color: #826550;
+}
+
+.works-item--work-of-month::after {
+  content: "";
+
+  position: absolute;
+  top: 401px;
+  left: 180px;
+  z-index: 2;
+
+  width: 16px;
+  height: 50px;
+
+  background-image: linear-gradient(to top left, transparent 50%, #826550 50%),
+    linear-gradient(to top right, #826550 50%, transparent 50%);
+}
+
+.works-item__image-wrapper {
+  position: relative;
+
+  height: 176px;
+  margin: 0;
+
+  line-height: 0;
+  text-align: center;
+
+  background-color: #e6ded6;
+
+  overflow: hidden;
+}
+
+.works-item--work-of-month .works-item__image-wrapper {
+  height: 480px;
+}
+
+.works-item__review {
+  padding-top: 19px;
+  padding-right: 21px;
+  padding-left: 21px;
+  padding-bottom: 0;
+
+  border: 1px solid #e5ddd5;
+  border-top: none;
+}
+
+.works-item__title {
+  margin-top: 0;
+  margin-bottom: 14px;
+
+  font-size: 24px;
+  line-height: 27px;
+  font-weight: bold;
+}
+
+.works-item__text {
+  margin: 0;
+  margin-bottom: 16px;
+}
+
+.works-item__parameter-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin: 0;
+  margin-top: auto;
+  padding: 0;
+
+  list-style: none;
+}
+
+.works-item__parameter-item {
+  position: relative;
+
+  width: auto;
+  margin-bottom: 15px;
+  margin-right: 30px;
+  padding-left: 36px;
+
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.works-item__parameter-item::before {
+  content: "";
+
+  position: absolute;
+  top: 50%;
+  left: 0;
+
+  width: 45px;
+  height: 21px;
+
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  transform: translate(-30%, -50%);
+}
+
+.works-item__parameter-item--haircut::before {
+  background-image: url("img/scissors-icon.svg");
+}
+
+.works-item__parameter-item--shaving::before {
+  background-image: url("img/beard-icon.svg");
+}
+
+.works-item__parameter-item--mustache::before {
+  background-image: url("img/mustache-icon.svg");
+}
+
+.works-item__parameter-item:last-child {
+  margin-right: 0;
+}

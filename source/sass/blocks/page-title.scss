@@ -1,0 +1,20 @@
+.page-title {
+  margin: 0 auto;
+  padding: 30px 0;
+
+  color: #000000;
+  text-transform: uppercase;
+
+  a {
+    display: none;
+  }
+}
+
+.page-title__title {
+  margin: 0;
+
+  font-size: 30px;
+  line-height: 30px;
+  font-weight: bold;
+  text-align: center;
+}
